@@ -57,15 +57,19 @@ cp -r /opt/cloudmetrics/client/dist/* /opt/cloudmetrics/server/public/
 echo "Waiting for database to be ready..."
 sleep 30
 
+# Export environment variables for seed script
+export DATABASE_URL="${database_url}"
+export REDIS_URL="${redis_url}"
+
 # Run database seed (creates tables and initial data)
 echo "Seeding database..."
 cd /opt/cloudmetrics
-sudo -u ec2-user npm run db:seed || echo "Seed failed or already seeded, continuing..."
+sudo -E -u ec2-user npm run db:seed || echo "Seed failed or already seeded, continuing..."
 
-# Start the server with PM2
+# Start the server with PM2 (dotenv loads .env automatically)
 echo "Starting CloudMetrics server..."
 cd /opt/cloudmetrics/server
-sudo -u ec2-user pm2 start dist/index.js --name cloudmetrics --env production
+sudo -u ec2-user pm2 start dist/index.js --name cloudmetrics
 
 # Save PM2 configuration and setup startup
 sudo -u ec2-user pm2 save

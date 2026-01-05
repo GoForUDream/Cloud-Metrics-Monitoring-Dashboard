@@ -1,4 +1,8 @@
 import { z } from 'zod';
+import { config as dotenvConfig } from 'dotenv';
+
+// Load .env file (dotenv won't override existing env vars)
+dotenvConfig();
 
 const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
