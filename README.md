@@ -2,7 +2,8 @@
 
 A real-time infrastructure monitoring dashboard built for learning cloud-native application development. Monitor CPU, memory, request counts, and response times across multiple server instances with live WebSocket updates.
 
-![Dashboard Preview](https://via.placeholder.com/800x400?text=CloudMetrics+Dashboard)
+![Dashboard Preview]<img width="1436" height="813" alt="Screenshot 2026-01-05 at 17 39 38" src="https://github.com/user-attachments/assets/459ff718-09cd-4da4-9568-9397382adeeb" />
+()
 
 ## Features
 
