@@ -48,10 +48,10 @@ echo "Building server..."
 cd /opt/cloudmetrics/server
 sudo -u ec2-user npm run build
 
-# Copy client build to server for serving static files (optional)
-# If you want to serve frontend from the same server
-mkdir -p /opt/cloudmetrics/server/public
-cp -r /opt/cloudmetrics/client/dist/* /opt/cloudmetrics/server/public/
+# Copy client build to server for serving static files
+# The compiled server code expects static files at dist/public/
+mkdir -p /opt/cloudmetrics/server/dist/public
+cp -r /opt/cloudmetrics/client/dist/* /opt/cloudmetrics/server/dist/public/
 
 # Wait for RDS to be ready (it might take a few minutes)
 echo "Waiting for database to be ready..."
@@ -69,7 +69,7 @@ sudo -E -u ec2-user npm run db:seed || echo "Seed failed or already seeded, cont
 # Start the server with PM2 (dotenv loads .env automatically)
 echo "Starting CloudMetrics server..."
 cd /opt/cloudmetrics/server
-sudo -u ec2-user pm2 start dist/index.js --name cloudmetrics
+sudo -u ec2-user pm2 start dist/src/index.js --name cloudmetrics
 
 # Save PM2 configuration and setup startup
 sudo -u ec2-user pm2 save

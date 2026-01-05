@@ -52,9 +52,8 @@ resource "aws_db_instance" "main" {
   vpc_security_group_ids = [aws_security_group.rds.id]
   publicly_accessible    = false
 
-  # Backup & Maintenance
-  backup_retention_period = 7
-  backup_window           = "03:00-04:00"
+  # Backup & Maintenance (reduced for free tier)
+  backup_retention_period = 0  # Disable backups for demo
   maintenance_window      = "Mon:04:00-Mon:05:00"
 
   # Performance

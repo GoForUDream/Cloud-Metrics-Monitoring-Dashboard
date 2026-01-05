@@ -14,8 +14,14 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
-// Security middleware
-app.use(helmet());
+// Security middleware - configured for HTTP (no HTTPS on ALB)
+app.use(helmet({
+  contentSecurityPolicy: false,
+  crossOriginEmbedderPolicy: false,
+  crossOriginOpenerPolicy: false,
+  crossOriginResourcePolicy: false,
+  originAgentCluster: false,
+}));
 
 // CORS
 app.use(

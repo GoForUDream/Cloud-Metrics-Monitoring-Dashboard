@@ -10,7 +10,7 @@
     │  Users   │                    │  │                    VPC (10.0.0.0/16)                │   │
     └────┬─────┘                    │  │                                                     │   │
          │                          │  │  ┌─────────────────────────────────────────────┐   │   │
-         │ HTTPS                    │  │  │            Public Subnets (10.0.1.0/24)     │   │   │
+         │ HTTPS                    │  │  │       Public Subnets (10.0.0.0/24, 10.0.1.0/24)    │   │   │
          ▼                          │  │  │                                             │   │   │
 ┌─────────────────┐                 │  │  │  ┌─────────────────────────────────────┐   │   │   │
 │ Application     │─────────────────┼──┼──┼─▶│      Application Load Balancer      │   │   │   │
@@ -46,8 +46,8 @@
                                     │  │  │  │         - Real-time metrics         │  │   │   │
                                     │  │  │  └─────────────────────────────────────┘  │   │   │
                                     │  │  │                                           │   │   │
-                                    │  │  │            Database Subnets               │   │   │
-                                    │  │  │             (10.0.2.0/24)                 │   │   │
+                                    │  │  │            Private Subnets                │   │   │
+                                    │  │  │       (10.0.10.0/24, 10.0.11.0/24)        │   │   │
                                     │  │  └───────────────────────────────────────────┘   │   │
                                     │  │                                                   │   │
                                     │  └───────────────────────────────────────────────────┘   │
@@ -70,8 +70,8 @@
 | Service | Purpose | Configuration |
 |---------|---------|---------------|
 | **VPC** | Isolated network environment | CIDR: 10.0.0.0/16 |
-| **Public Subnets** | Host ALB and EC2 instances | 10.0.1.0/24, 10.0.3.0/24 (2 AZs) |
-| **Private Subnets** | Host RDS and ElastiCache | 10.0.2.0/24, 10.0.4.0/24 (2 AZs) |
+| **Public Subnets** | Host ALB and EC2 instances | 10.0.0.0/24, 10.0.1.0/24 (2 AZs) |
+| **Private Subnets** | Host RDS and ElastiCache | 10.0.10.0/24, 10.0.11.0/24 (2 AZs) |
 | **Internet Gateway** | Public internet access | Attached to VPC |
 | **Security Groups** | Firewall rules | ALB, EC2, RDS, Redis |
 
@@ -272,7 +272,7 @@ CloudWatch monitors:
 ## Disaster Recovery
 
 For this demo setup:
-- **RDS**: Daily automated backups (7-day retention)
+- **RDS**: Automated backups disabled to minimize costs
 - **EC2**: Stateless, can be replaced by Auto Scaling
 - **No multi-AZ**: Single AZ deployment to minimize costs
 

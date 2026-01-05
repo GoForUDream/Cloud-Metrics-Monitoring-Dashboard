@@ -112,7 +112,7 @@ resource "aws_launch_template" "app" {
   }
 
   user_data = base64encode(templatefile("${path.module}/user_data.sh", {
-    database_url  = "postgresql://${var.database_username}:${var.database_password}@${var.database_endpoint}:5432/${var.database_name}"
+    database_url  = "postgresql://${var.database_username}:${var.database_password}@${var.database_endpoint}:5432/${var.database_name}?sslmode=no-verify"
     redis_url     = "redis://${var.redis_endpoint}:6379"
     cors_origin   = "http://${var.alb_dns_name}"
     app_port      = var.app_port
